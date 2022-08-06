@@ -74,7 +74,7 @@ export const SignIn = () => {
   }
   var lat, long
   function showPosition(position) {
-    console.log(position.coords.latitude, position.coords.longitude);
+    // console.log(position.coords.latitude, position.coords.longitude);
     lat = position.coords.latitude;
     long = position.coords.longitude;
   }
@@ -106,7 +106,6 @@ export const SignIn = () => {
   
     const sendMessage = async (e) => {
       e.preventDefault();
-      
   
       
       const { uid, photoURL } = auth.currentUser;
@@ -141,20 +140,30 @@ export const SignIn = () => {
   
         <span ref={dummy}></span>
         <span><button className="plus-button" onClick={() => {
-          //create a pop up from the button to add new chatrooms to the database
-          var newChatroom = prompt("Enter a new chatroom name");
-          if (newChatroom != null) {
-            firestore.collection('chatrooms').add({
-              name: newChatroom,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-              uid: auth.currentUser.uid,
-              photoURL: auth.currentUser.photoURL
-            })
-          }
-          //redirect to the NewChatroom component
-  
-        }
-        }>➕</button></span>
+          //create a pop up from the button to add new chatrooms to the database with a six digit unique id
+            var id = Math.floor(Math.random() * 1000000);
+            var idString = id.toString();
+            while (idString.length < 6) {
+                idString = "0" + idString;
+            }
+            var roomName = prompt("Enter a name for your chatroom");
+            // create a new chatroom in the database with the unique id, name, latitude, and longitude, the user's uid, collection roomMessages
+            if (roomName != null) {
+                firestore.collection('chatrooms').doc(idString).set({
+                    id: idString,
+                    name: roomName,
+                    latitude: lat,
+                    longitude: long,
+                    uid: auth.currentUser.uid,
+                })
+                // redirect to the new chatroom
+                window.location.href = "/chatroom?id=" + idString;
+            } else {
+                alert("Please enter a name for your chatroom")
+            }
+
+
+        }}>➕</button></span>
   
       </main>
   

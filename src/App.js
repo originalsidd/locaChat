@@ -8,7 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getDocs, query, collection, where, orderBy } from 'firebase/firestore';
 import { BrowserRouter as Router, Routes, Route, Redirect,} from "react-router-dom";
-import { chatroom } from './components/chatroom';
+import { Chatroom } from './components/Chatroom';
 import { Home } from './components/Home';
 
 firebase.initializeApp({
@@ -34,7 +34,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route exact path="/chatroom" element={<chatroom/>}/>
+          <Route path="/chatroom" element={<Chatroom/>}/>
         </Routes>
       </Router>
     </>
