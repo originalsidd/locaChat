@@ -68,23 +68,26 @@ function SignOut() {
 // ask for location permission and get user location to display in chat room
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
+     return navigator.geolocation.getCurrentPosition(showPosition);
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
 }
-
+var lat, long
 function showPosition(position) {
   console.log(position.coords.latitude, position.coords.longitude);
+  lat = position.coords.latitude;
+  long = position.coords.longitude;
 }
-
-var lat = getLocation();
-
+getLocation();
 
 function ChatRoom() {
   const dummy = useRef();
+  // get messsages from firebase whose latitude and longitude are within 2km of the user's location
   
-  const messagesRef = firestore.collection('messages');
+  
+  //const messagesRef = useCollectionData(firestore.collection('messages').where('latitude', '>=', lat - 0.02).where('latitude', '<=', lat + 0.02).where('longitude', '>=', long - 0.02).where('longitude', '<=', long + 0.02));
+  // const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt');
 
   const [messages] = useCollectionData(query, { idField: 'id' });
@@ -102,7 +105,8 @@ function ChatRoom() {
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL,
-      // lat,
+      latitude: lat,
+      longitude: long
     })
 
     setFormValue('');
