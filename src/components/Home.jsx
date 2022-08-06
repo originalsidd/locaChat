@@ -146,21 +146,42 @@ export const SignIn = () => {
             while (idString.length < 6) {
                 idString = "0" + idString;
             }
-            var roomName = prompt("Enter a name for your chatroom");
-            // create a new chatroom in the database with the unique id, name, latitude, and longitude, the user's uid, collection roomMessages
-            if (roomName != null) {
-                firestore.collection('chatrooms').doc(idString).set({
-                    id: idString,
-                    name: roomName,
-                    latitude: lat,
-                    longitude: long,
-                    uid: auth.currentUser.uid,
-                })
-                // redirect to the new chatroom
-                window.location.href = "/chatroom?id=" + idString;
-            } else {
-                alert("Please enter a name for your chatroom")
+            // ask is user wants to create a new chatroom or join an existing one
+            var joinOrCreate = prompt("Do you want to create a new chatroom or join an existing one? (create/join)");
+            if (joinOrCreate === "create") {
+                var roomName = prompt("Enter a name for your chatroom");
+                // create a new chatroom
+                if (roomName != null) {
+                    firestore.collection('chatrooms').doc(idString).set({
+                        id: idString,
+                        name: roomName,
+                        latitude: lat,
+                        longitude: long,
+                        uid: auth.currentUser.uid,
+                    }).then(function() {
+                        console.log("Document successfully written!");
+                        window.location = "/chatroom?id=" + idString;
+                    }
+                    )
+                    .catch(function(error) {
+                        console.error("Error writing document: ", error);
+                    }
+                    );
+                    }
+            } else if (joinOrCreate === "join") {
+                // join an existing chatroom
+                var roomId = prompt("Enter the id of the chatroom you want to join");
+                firestore.collection('chatrooms').doc(roomId).get().then(function(doc) {
+                    if (doc.exists) {
+                        // redirect to chatroom
+                        window.location.href = "/chatroom?id=" + roomId;
+                    } else {
+                        alert("Chatroom does not exist");
+                    }
+                }
+                )
             }
+
 
 
         }}>➕</button></span>
