@@ -52,3 +52,14 @@ Deployment server and Database functionality:
 
 Authentication:
 * 0-Auth
+
+## Description 
+This app would allow users to anonymously send
+messages to other users based on their location. The
+app would be useful for transmitting important
+information to strangers in one's vicinity, such as alerts
+about a natural disaster or a crime or just a discussion
+about things happening in the surroundings. Users
+would be able to broadcast messages to any other user
+within that radius of 2km using the app. Chatrooms for
+special events would also be possible using the app.

@@ -5,9 +5,9 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/analytics';
-
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { getDocs, query, collection, where, orderBy } from 'firebase/firestore';
 
 firebase.initializeApp({
   apiKey: `${process.env.REACT_APP_API_KEY}`,
@@ -79,28 +79,39 @@ function showPosition(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
 }
-getLocation();
+setInterval(getLocation, 10000);
 
 function ChatRoom() {
   const dummy = useRef();
   // get messsages from firebase whose latitude and longitude are within 2km of the user's location
   
+  let messagesRef1 = firestore.collection('messages');
   
-  //const messagesRef = useCollectionData(firestore.collection('messages').where('latitude', '>=', lat - 0.02).where('latitude', '<=', lat + 0.02).where('longitude', '>=', long - 0.02).where('longitude', '<=', long + 0.02));
-  // const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt');
+  // let messagesRef = firebase.firestore().collection('messages');
+  // // let messagesRef = useCollectionData(firestore.collection('messages'));
+  // messagesRef = messagesRef.where('latitude', '>=', lat - 0.02).where('latitude', '<=', lat + 0.02);
+  // messagesRef = messagesRef.where('longitude', '>=', long - 0.02).where('longitude', '<=', long + 0.02);
+  // // const messagesRef = firestore.collection('messages');
+  //const query = messagesRef1.orderBy('createdAt');
 
-  const [messages] = useCollectionData(query, { idField: 'id' });
+  let messagesRef = firestore
+      .collection('messages')
+  messagesRef = messagesRef.orderBy('createdAt');
+  
+
+  const doc = getDocs(messagesRef)
+  console.log(doc)
+  const [messages] = useCollectionData(messagesRef, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
 
 
   const sendMessage = async (e) => {
     e.preventDefault();
     
-
+    
     const { uid, photoURL } = auth.currentUser;
 
-    await messagesRef.add({
+    await messagesRef1.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
@@ -116,7 +127,12 @@ function ChatRoom() {
   return (<>
     <main>
 
-      {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+      {messages && messages.filter(
+        msg => {
+          return msg.latitude <= lat + 0.02 && msg.latitude >= lat - 0.02 && msg.longitude <= long + 0.02 && msg.longitude >= long - 0.02;
+        }
+      )
+      .map(msg => <ChatMessage key={msg.id} message={msg} />)}
 
       <span ref={dummy}></span>
 
