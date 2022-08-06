@@ -3,6 +3,17 @@ You are unknown, but not alone...
 
 A location-based chat-app to share important/interesting information to the nearby users anonymously. Let's say a user A broadcasts a message in the super chat interface provided in the App. The chat will be visible to all the users using the App within a 2km radius of user A.
 
+## Description 
+This app would allow users to anonymously send
+messages to other users based on their location. The
+app would be useful for transmitting important
+information to strangers in one's vicinity, such as alerts
+about a natural disaster or a crime or just a discussion
+about things happening in the surroundings. Users
+would be able to broadcast messages to any other user
+within that radius of 2km using the app. Chatrooms for
+special events would also be possible using the app.
+
 ## Objective of the project
 
 There are many crucial problems locaChat is capable of solving :
@@ -39,6 +50,13 @@ such as a **gunman on the loose, robbery, terrorist
 activities.**  
 
 
+## Features
+1. Ability to share important info with people nearby anonymously.
+2. Ability to send an SOS to the people nearby.
+3. Creating chat-rooms for offline events, which can be entered using just a room-code. This can be used to share info/opinions regarding event anonymously.
+4. Avoiding cyberbullying and hate speech
+through message preprocessing using NLP.
+
 ## Technologies used
 
 Frontend technologies:
@@ -52,14 +70,3 @@ Deployment server and Database functionality:
 
 Authentication:
 * 0-Auth
-
-## Description 
-This app would allow users to anonymously send
-messages to other users based on their location. The
-app would be useful for transmitting important
-information to strangers in one's vicinity, such as alerts
-about a natural disaster or a crime or just a discussion
-about things happening in the surroundings. Users
-would be able to broadcast messages to any other user
-within that radius of 2km using the app. Chatrooms for
-special events would also be possible using the app.
