@@ -21,7 +21,6 @@ firebase.initializeApp({
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
-const analytics = firebase.analytics();
 
 
 function App() {
@@ -32,7 +31,7 @@ function App() {
     <div className="App">
       <header>
         <h1>⚛️🗿💬</h1>
-        <h1>Super-Chat</h1>
+        <h1>locaChat</h1>
         <SignOut />
       </header>
 
@@ -66,19 +65,35 @@ function SignOut() {
   )
 }
 
+// ask for location permission and get user location to display in chat room
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+  console.log(position.coords.latitude, position.coords.longitude);
+}
+
+var lat = getLocation();
+
 
 function ChatRoom() {
   const dummy = useRef();
+  
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt');
 
   const [messages] = useCollectionData(query, { idField: 'id' });
-
   const [formValue, setFormValue] = useState('');
 
 
   const sendMessage = async (e) => {
     e.preventDefault();
+    
 
     const { uid, photoURL } = auth.currentUser;
 
@@ -86,7 +101,8 @@ function ChatRoom() {
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
-      photoURL
+      photoURL,
+      // lat,
     })
 
     setFormValue('');
