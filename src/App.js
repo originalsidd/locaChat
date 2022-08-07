@@ -51,7 +51,7 @@ function App() {
                 <Router>
                     <Routes>
                         <Route path='/locaChat' element={<Home />} />
-                        <Route path='/chatroom' element={<Chatroom />} />
+                        <Route path='/locaChat/chatroom' element={<Chatroom />} />
                     </Routes>
                 </Router>
             )}
