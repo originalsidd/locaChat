@@ -124,7 +124,7 @@ const ChatRoom = () => {
                 <input
                     value={formValue}
                     onChange={(e) => setFormValue(e.target.value)}
-                    placeholder='say something weirdly inappropriate'
+                    placeholder='Type your message'
                 />
 
                 <button type='submit' disabled={!formValue} id='sendButton'>
