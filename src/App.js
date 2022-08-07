@@ -55,7 +55,7 @@ function App() {
             ) : (
                 <Router>
                     <Routes>
-                        <Route path='/' element={<Home />} />
+                        <Route path='/locaChat' element={<Home />} />
                         <Route path='/chatroom' element={<Chatroom />} />
                     </Routes>
                 </Router>
