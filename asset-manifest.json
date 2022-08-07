@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/locaChat/static/css/main.1fd794a1.css",
-    "main.js": "/locaChat/static/js/main.7ca6b0fd.js",
+    "main.js": "/locaChat/static/js/main.6f313abe.js",
     "static/js/787.87fcf0b9.chunk.js": "/locaChat/static/js/787.87fcf0b9.chunk.js",
     "static/media/load.svg": "/locaChat/static/media/load.8537fc994b8b676bc996c93ab27a9fdf.svg",
     "index.html": "/locaChat/index.html",
     "main.1fd794a1.css.map": "/locaChat/static/css/main.1fd794a1.css.map",
-    "main.7ca6b0fd.js.map": "/locaChat/static/js/main.7ca6b0fd.js.map",
+    "main.6f313abe.js.map": "/locaChat/static/js/main.6f313abe.js.map",
     "787.87fcf0b9.chunk.js.map": "/locaChat/static/js/787.87fcf0b9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1fd794a1.css",
-    "static/js/main.7ca6b0fd.js"
+    "static/js/main.6f313abe.js"
   ]
 }
