@@ -62,7 +62,7 @@ export const Home = () => {
             })
             .then(function () {
                 console.log('Document successfully written!');
-                window.location = '/chatroom?id=' + idString;
+                window.location = '/locaChat/chatroom?id=' + idString;
             })
             .catch(function (error) {
                 console.error('Error writing document: ', error);
@@ -82,7 +82,7 @@ export const Home = () => {
             .then(function (doc) {
                 if (doc.exists) {
                     // redirect to chatroom
-                    window.location.href = '/chatroom?id=' + roomId;
+                    window.location.href = '/locaChat/chatroom?id=' + roomId;
                 } else {
                     alert('Chatroom does not exist');
                 }
@@ -134,10 +134,7 @@ export const Home = () => {
                                     ➕
                                 </button>
                             </span>
-                            <h1>
-                                locaChat
-                                {/* <a href='public\a1.html'>SOS</a> */}
-                            </h1>
+                            <h1>locaChat</h1>
                             <SignOut />
                         </header>
                         <ChatRoom />
@@ -299,32 +296,5 @@ export const ChatMessage = (props) => {
         </>
     );
 };
-
-//create a new chatroom
-//   function NewChatRoom(props) {
-//     const { name } = props;
-//     const [messages, setMessages] = useState([]);
-//     const [formValue, setFormValue] = useState('');
-
-//     const messagesRef = firestore.collection('messages');
-//     const query = messagesRef.where('chatroom', '==', name);
-//     const doc = getDocs(query)
-//     console.log(doc)
-//     const [messages1] = useCollectionData(query, { idField: 'id' });
-//     console.log(messages1)
-
-//     const sendMessage = async (e) => {
-//       e.preventDefault();
-//       const { uid, photoURL } = auth.currentUser;
-//       await messagesRef.add({
-//         text: formValue,
-//         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-//         uid,
-//         photoURL,
-//         chatroom: name
-//       })
-//       setFormValue('');
-//     }
-//  }
 
 export default Home;
