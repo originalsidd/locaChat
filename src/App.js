@@ -7,12 +7,7 @@ import 'firebase/compat/analytics';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { getDocs, query, collection, where, orderBy } from 'firebase/firestore';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Chatroom from './components/chatroom';
 import { Home } from './components/Home';
 import Load from './components/Load';
